@@ -1,2 +1,4 @@
 __*
 Win32/
+*.local
+*.stat

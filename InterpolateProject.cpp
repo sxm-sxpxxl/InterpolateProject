@@ -4,8 +4,8 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
-USEFORM("Main.cpp", MainForm);
-USEFORM("InterpolateInfo.cpp", ChildForm);
+USEFORM("MainView.cpp", MainForm);
+USEFORM("AdditionalView.cpp", ChildForm);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
