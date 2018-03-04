@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
-#ifndef MainH
-#define MainH
+#ifndef MainViewH
+#define MainViewH
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
@@ -15,7 +15,7 @@
 #include <VCLTee.TeEngine.hpp>
 #include <VCLTee.TeeProcs.hpp>
 
-#include "InterpolateInfo.h"
+#include "AdditionalView.h"
 //---------------------------------------------------------------------------
 class TMainForm : public TForm
 {

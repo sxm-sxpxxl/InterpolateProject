@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
-#ifndef InterpolateInfoH
-#define InterpolateInfoH
+#ifndef AdditionalViewH
+#define AdditionalViewH
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
@@ -16,7 +16,7 @@
 #include <VCLTee.TeEngine.hpp>
 #include <VCLTee.TeeProcs.hpp>
 
-#include "Functions.h"
+#include "PolynomialAndInterpInfo.h"
 //---------------------------------------------------------------------------
 const double STEP = 0.1;
 
@@ -42,7 +42,7 @@ __published:	// IDE-managed Components
 
 private:	// User declarations
 	InterpInfo* itsInterpInfo;
-    Polynomial* itsPoly;
+    BasePolynomial* itsPoly;
 	std::vector<double> xVec;
 public:		// User declarations
 	__fastcall TChildForm(TComponent* Owner);

@@ -24,10 +24,6 @@ object ChildForm: TChildForm
     TabOrder = 0
     object FunctionsTabSheet: TTabSheet
       Caption = #1056#1080#1089'. F(x), P(x)'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object EmoValueLabel: TLabel
         Left = 3
         Top = 354
