@@ -37,9 +37,9 @@ __published:	// IDE-managed Components
 	TLabel *Label12;
 	TEdit *NValueEdit;
 	TButton *InterpolateButton;
-	TChart *Chart1;
-	TFastLineSeries *FSeries;
-	TLineSeries *PSeries;
+	TLabel *Label13;
+	TLabel *Label14;
+	TComboBox *PolynomialsComboBox;
 	void __fastcall InterpolateButtonClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations

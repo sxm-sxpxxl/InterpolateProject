@@ -19,8 +19,11 @@ void __fastcall TMainForm::InterpolateButtonClick(TObject *Sender)
 	double NValue = NValueEdit->Text.ToInt();
 
 	InterpInfo* info = new InterpInfo;
-	std::wstring str(FunctionsComboBox->Text.c_str());
-	info->functionStr = str;
+	std::wstring strFunction(FunctionsComboBox->Text.c_str());
+	std::wstring strPolynomial(PolynomialsComboBox->Text.c_str());
+
+	info->functionStr = strFunction;
+    info->polynomialStr = strPolynomial;
 	info->a = aValue;
 	info->b = bValue;
 	info->N = NValue;
