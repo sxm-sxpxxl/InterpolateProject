@@ -10,6 +10,7 @@
 double factorial(double n);
 double func(double x);
 
+<<<<<<< HEAD
 const std::wstring LAGRANGE_POLYNOMIAL_STR = L"Полином Лагранжа";
 const std::wstring NEWTON_I_POLYNOMIAL_STR = L"Полином Ньютона I";
 const std::wstring NEWTON_II_POLYNOMIAL_STR = L"Полином Ньютона II";
@@ -17,6 +18,10 @@ const std::wstring NEWTON_II_POLYNOMIAL_STR = L"Полином Ньютона II";
 struct InterpInfo {
 	std::wstring functionStr;
     std::wstring polynomialStr;
+=======
+struct InterpInfo {
+	std::wstring functionStr;
+>>>>>>> a0c05c5aaf0b878eabd600cfe3d0078cd690247f
 	double a, b;
 	unsigned int N;
 };

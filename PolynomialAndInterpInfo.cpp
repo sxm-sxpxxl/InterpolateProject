@@ -100,7 +100,11 @@ double NewtonIIPoly::deltaY(int i) {
 	std::vector<double> deltaYi;
 	std::vector<double> deltaYn;
 
+<<<<<<< HEAD
 	for(unsigned int j = 1; j <= i; j++) {
+=======
+	for(int j = 1; j <= i; j++) {
+>>>>>>> a0c05c5aaf0b878eabd600cfe3d0078cd690247f
 		for(unsigned int k = 0; k < (itsInfo->N - j); k++) {
 			if(deltaYi.size() < (itsInfo->N - 1)) {
 				deltaYi.push_back(func(xVec[k + 1]) - func(xVec[k]));
@@ -121,7 +125,11 @@ double NewtonIIPoly::functionPolynomial(double x) {
 	double result = 0;
 	for(unsigned int i = 0; i < xVec.size(); i++) {
 		if(i == (xVec.size() - 1)) {
+<<<<<<< HEAD
 			result += aVec[0];
+=======
+			result += aVec[i];
+>>>>>>> a0c05c5aaf0b878eabd600cfe3d0078cd690247f
 			continue;
 		}
 
