@@ -16,7 +16,10 @@
 #include <VCLTee.TeEngine.hpp>
 #include <VCLTee.TeeProcs.hpp>
 
+<<<<<<< HEAD:AdditionalView.h
 #include "D:\Programs-PartII\Dropbox\EmbarcaderoProjects\InterpolateProject\str_switch\str_switch.h"
+=======
+>>>>>>> a0c05c5aaf0b878eabd600cfe3d0078cd690247f:AdditionalView.h
 #include "PolynomialAndInterpInfo.h"
 //---------------------------------------------------------------------------
 const double STEP = 0.1;
