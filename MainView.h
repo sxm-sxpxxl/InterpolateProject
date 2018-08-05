@@ -1,8 +1,8 @@
-//---------------------------------------------------------------------------
+﻿// ---------------------------------------------------------------------------
 
 #ifndef MainViewH
 #define MainViewH
-//---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
@@ -16,10 +16,10 @@
 #include <VCLTee.TeeProcs.hpp>
 
 #include "AdditionalView.h"
-//---------------------------------------------------------------------------
-class TMainForm : public TForm
-{
-__published:	// IDE-managed Components
+
+// ---------------------------------------------------------------------------
+class TMainForm : public TForm {
+__published: // IDE-managed Components
 	TLabel *Label1;
 	TLabel *Label2;
 	TLabel *Label3;
@@ -40,12 +40,15 @@ __published:	// IDE-managed Components
 	TLabel *Label13;
 	TLabel *Label14;
 	TComboBox *PolynomialsComboBox;
+
 	void __fastcall InterpolateButtonClick(TObject *Sender);
-private:	// User declarations
-public:		// User declarations
+
+private: // User declarations
+public: // User declarations
 	__fastcall TMainForm(TComponent* Owner);
 };
-//---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
 extern PACKAGE TMainForm *MainForm;
-//---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #endif

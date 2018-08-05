@@ -1,41 +1,65 @@
-//---------------------------------------------------------------------------
+ï»¿// ---------------------------------------------------------------------------
 
 #include <vcl.h>
 #pragma hdrstop
 
 #include "AdditionalView.h"
-//---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TChildForm *ChildForm;
-//---------------------------------------------------------------------------
-__fastcall TChildForm::TChildForm(TComponent* Owner)
-	: TForm(Owner) { }
-//---------------------------------------------------------------------------
-void __fastcall TChildForm::FormShow(TObject *Sender)
-{
-	this->Caption = L"Èíòåðïîëèðîâàíèå ôóêíöèè F(x) = " + (UnicodeString)itsInterpInfo->functionStr.c_str() +
-					L" íà èíòåðâàëå [" + (UnicodeString)itsInterpInfo->a + L" ; " + (UnicodeString)itsInterpInfo->b + L"]";
-    drawFunctionsOnGraph();
+
+// ---------------------------------------------------------------------------
+__fastcall TChildForm::TChildForm(TComponent* Owner) : TForm(Owner) {
+	itsPoly = NULL;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TChildForm::FormShow(TObject *Sender) {
+	this->Caption = L"Ð˜Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ F(x) = " + (UnicodeString)
+		itsInterpInfo->functionStr.c_str() + L" Ð½Ð° Ð¸Ð½Ñ‚ÐµÑ€Ð²Ð°Ð»Ðµ [" +
+		(UnicodeString)itsInterpInfo->a + L" ; " + (UnicodeString)
+		itsInterpInfo->b + L"]";
+	drawFunctionsOnGraph();
 	PageControl->ActivePage = FunctionsTabSheet;
 }
-//---------------------------------------------------------------------------
-void TChildForm::initializeInterpInfo(InterpInfo* info) {
+
+// ---------------------------------------------------------------------------
+void TChildForm::initialize(InterpInfo* info) {
 	itsInterpInfo = info;
 }
-//---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
 void TChildForm::drawFunctionsOnGraph() {
-    double xCurrent = itsInterpInfo->a;
-	for(int i = 0; i < abs(itsInterpInfo->b - itsInterpInfo->a) / STEP; i++) {
+	double xCurrent = itsInterpInfo->a;
+	for (int i = 0; i < abs(itsInterpInfo->b - itsInterpInfo->a) / STEP; i++) {
 		FSeries->AddXY(xCurrent, func(xCurrent), NULL, FSeries->Color);
 		xVec.push_back(xCurrent);
 		xCurrent += STEP;
 	}
 
-	itsPoly = new NewtonIIPoly(itsInterpInfo);
-	for(int i = 0; i < abs(itsInterpInfo->b - itsInterpInfo->a) / STEP; i++) {
-		PSeries->AddXY(xVec[i], itsPoly->functionPolynomial(xVec[i]), NULL, PSeries->Color);
+	// itsInterpInfo->polynomialStr.compare(LAGRANGE_POLYNOMIAL_STR) == 0;
+
+	if (itsInterpInfo->polynomialStr.compare(LAGRANGE_POLYNOMIAL_STR) == 0)
+		itsPoly = new LagrangePolynomial(itsInterpInfo);
+	else if (itsInterpInfo->polynomialStr.compare(NEWTON_I_POLYNOMIAL_STR) == 0)
+		itsPoly = new NewtonIPoly(itsInterpInfo);
+	else if (itsInterpInfo->polynomialStr.compare
+		(NEWTON_II_POLYNOMIAL_STR) == 0)
+		itsPoly = new NewtonIIPoly(itsInterpInfo);
+
+	if (itsPoly == NULL)
+		throw 1;
+
+	for (int i = 0; i < abs(itsInterpInfo->b - itsInterpInfo->a) / STEP; i++) {
+		PSeries->AddXY(xVec[i], itsPoly->functionPolynomial(xVec[i]), NULL,
+			PSeries->Color);
 	}
-
 }
+// ---------------------------------------------------------------------------
 
+void __fastcall TChildForm::FormClose(TObject *Sender, TCloseAction &Action) {
+	PSeries->Clear();
+	delete itsPoly;
+}
+// ---------------------------------------------------------------------------

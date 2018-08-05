@@ -1,8 +1,8 @@
-//---------------------------------------------------------------------------
+﻿// ---------------------------------------------------------------------------
 
 #ifndef AdditionalViewH
 #define AdditionalViewH
-//---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
@@ -16,17 +16,12 @@
 #include <VCLTee.TeEngine.hpp>
 #include <VCLTee.TeeProcs.hpp>
 
-<<<<<<< HEAD:AdditionalView.h
-#include "D:\Programs-PartII\Dropbox\EmbarcaderoProjects\InterpolateProject\str_switch\str_switch.h"
-=======
->>>>>>> a0c05c5aaf0b878eabd600cfe3d0078cd690247f:AdditionalView.h
 #include "PolynomialAndInterpInfo.h"
-//---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const double STEP = 0.1;
 
-class TChildForm : public TForm
-{
-__published:	// IDE-managed Components
+class TChildForm : public TForm {
+__published: // IDE-managed Components
 	TPageControl *PageControl;
 	TTabSheet *FunctionsTabSheet;
 	TTabSheet *ExTabSheet;
@@ -45,23 +40,27 @@ __published:	// IDE-managed Components
 	TChart *Chart1;
 	TFastLineSeries *ESeries;
 	TButton *Button1;
-	void __fastcall FormShow(TObject *Sender);
-	void __fastcall FormHide(TObject *Sender);
 
-private:	// User declarations
+	void __fastcall FormShow(TObject *Sender);
+	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+
+private: // User declarations
 	InterpInfo* itsInterpInfo;
-    BasePolynomial* itsPoly;
-	std::vector<double> xVec;
+	BasePolynomial* itsPoly;
+
+	std::vector<double>xVec;
 	void drawFunctionsOnGraph();
-public:		// User declarations
+
+public: // User declarations
 	__fastcall TChildForm(TComponent* Owner);
-	void TChildForm::initializeInterpInfo(InterpInfo* info);
-    unsigned int str2int(const char* str, int h = 0)
-	{
-		return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
-	}
+	void TChildForm::initialize(InterpInfo* info);
+
+	// unsigned int str2int(const char* str, int h = 0) {
+	// return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
+	// }
 };
-//---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
 extern PACKAGE TChildForm *ChildForm;
-//---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #endif
