@@ -25,10 +25,6 @@ object ChildForm: TChildForm
     TabOrder = 0
     object FunctionsTabSheet: TTabSheet
       Caption = #1056#1080#1089'. F(x), P(x)'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object EmoValueLabel: TLabel
         Left = 3
         Top = 354
@@ -100,6 +96,9 @@ object ChildForm: TChildForm
         LeftAxis.LabelsFormat.Font.Color = clGray
         LeftAxis.LabelsFormat.Font.Height = -9
         LeftAxis.LabelStyle = talValue
+        RightAxis.Automatic = False
+        RightAxis.AutomaticMaximum = False
+        RightAxis.AutomaticMinimum = False
         View3D = False
         Zoom.Animated = True
         BevelWidth = 2
@@ -157,10 +156,6 @@ object ChildForm: TChildForm
     object ExTabSheet: TTabSheet
       Caption = #1056#1080#1089'. E(x)'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Chart1: TChart
         Left = 3
         Top = 8
@@ -247,10 +242,6 @@ object ChildForm: TChildForm
     object ValueTabSheet: TTabSheet
       Caption = #1058#1072#1073#1083#1080#1094#1072' '#1079#1085#1072#1095#1077#1085#1080#1081
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object ValueTableMemo: TMemo
         Left = 0
         Top = 0
@@ -283,10 +274,6 @@ object ChildForm: TChildForm
     object CoeffTableSheet: TTabSheet
       Caption = #1050#1086#1101#1092#1092#1080#1094#1080#1077#1085#1090#1099
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object CoeffTableSaveButton: TButton
         Left = 0
         Top = 390

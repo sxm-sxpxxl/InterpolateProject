@@ -7,7 +7,9 @@
 #include <math.h>
 #include <vector>
 
-double factorial(double n);
+#include <Vcl.Dialogs.hpp>
+
+long factorial(int n);
 double func(double x);
 
 const std::wstring LAGRANGE_POLYNOMIAL_STR = L"Полином Лагранжа";
@@ -19,36 +21,51 @@ struct InterpInfo {
 	std::wstring polynomialStr;
 
 	double a, b;
-	unsigned int N;
-};
+	size_t N;
 
-struct Polynomial {
-	std::vector<double>aVec;
-	std::vector<double>xVec;
+	InterpInfo(std::wstring funcStr, std::wstring polyStr,
+			   double a, double b, size_t N) {
+		functionStr = funcStr;
+		polynomialStr = polyStr;
+		this->a = a;
+		this->b = b;
+        this->N = N;
+	}
+
+	InterpInfo(const InterpInfo & baseInfo) {
+		this->functionStr = baseInfo.functionStr;
+		this->polynomialStr = baseInfo.polynomialStr;
+		this->a = baseInfo.a;
+		this->b = baseInfo.b;
+		this->N = baseInfo.N;
+	}
 };
 
 class BasePolynomial {
 public:
-	BasePolynomial(InterpInfo* info);
+	BasePolynomial(const InterpInfo* info);
+	virtual ~BasePolynomial();
 	virtual double functionPolynomial(double x) = 0;
 
 protected:
-	std::vector<double>aVec;
-	std::vector<double>xVec;
+	std::vector<double> aVec;
+	std::vector<double> xVec;
 
-	InterpInfo* itsInfo;
+	const InterpInfo* itsInfo;
 	double h;
 };
 
 class LagrangePolynomial : public BasePolynomial {
 public:
-	LagrangePolynomial(InterpInfo* info) : BasePolynomial(info) {}
-	double functionPolynomial(double x);
+	LagrangePolynomial(const InterpInfo* info) : BasePolynomial(info) { }
+	~LagrangePolynomial() override { }
+	double functionPolynomial(double x) override;
 };
 
 class BaseNewtonPolynomial : public BasePolynomial {
 public:
-	BaseNewtonPolynomial(InterpInfo* info) : BasePolynomial(info) { }
+	BaseNewtonPolynomial(const InterpInfo* info) : BasePolynomial(info) { }
+	virtual ~BaseNewtonPolynomial() { }
 	virtual double functionPolynomial(double x) = 0;
 
 protected:
@@ -57,20 +74,22 @@ protected:
 
 class NewtonIPoly : public BaseNewtonPolynomial {
 public:
-	NewtonIPoly(InterpInfo* info);
-	double functionPolynomial(double x);
+	NewtonIPoly(const InterpInfo* info);
+	~NewtonIPoly() override { }
+	double functionPolynomial(double x) override;
 
 private:
-	double deltaY(unsigned i);
+	double deltaY(unsigned i) override;
 };
 
 class NewtonIIPoly : public BaseNewtonPolynomial {
 public:
-	NewtonIIPoly(InterpInfo* info);
-	double functionPolynomial(double x);
+	NewtonIIPoly(const InterpInfo* info);
+    ~NewtonIIPoly() override { }
+	double functionPolynomial(double x) override;
 
 private:
-	double deltaY(unsigned i);
+	double deltaY(unsigned i) override;
 };
 
 #endif

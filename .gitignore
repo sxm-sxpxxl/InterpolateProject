@@ -1,4 +1,8 @@
-__*
 Win32/
+
 *.local
+
 *.stat
+__astcache/
+__history/
+__recovery/

@@ -16,6 +16,7 @@
 #include <VCLTee.TeeProcs.hpp>
 
 #include "AdditionalView.h"
+#include <Vcl.ComCtrls.hpp>
 
 // ---------------------------------------------------------------------------
 class TMainForm : public TForm {
@@ -40,6 +41,7 @@ __published: // IDE-managed Components
 	TLabel *Label13;
 	TLabel *Label14;
 	TComboBox *PolynomialsComboBox;
+	TUpDown *UpDownNValueEdit;
 
 	void __fastcall InterpolateButtonClick(TObject *Sender);
 

@@ -11,7 +11,8 @@ TChildForm *ChildForm;
 
 // ---------------------------------------------------------------------------
 __fastcall TChildForm::TChildForm(TComponent* Owner) : TForm(Owner) {
-	itsPoly = NULL;
+    itsInterpInfo = nullptr;
+	itsPoly = nullptr;
 }
 
 // ---------------------------------------------------------------------------
@@ -25,41 +26,49 @@ void __fastcall TChildForm::FormShow(TObject *Sender) {
 }
 
 // ---------------------------------------------------------------------------
-void TChildForm::initialize(InterpInfo* info) {
-	itsInterpInfo = info;
+void TChildForm::initialize(const InterpInfo & info) {
+    itsInterpInfo = new InterpInfo(info);
 }
 
 // ---------------------------------------------------------------------------
 void TChildForm::drawFunctionsOnGraph() {
-	double xCurrent = itsInterpInfo->a;
-	for (int i = 0; i < abs(itsInterpInfo->b - itsInterpInfo->a) / STEP; i++) {
-		FSeries->AddXY(xCurrent, func(xCurrent), NULL, FSeries->Color);
-		xVec.push_back(xCurrent);
-		xCurrent += STEP;
+	{
+		double xCurrent = itsInterpInfo->a;
+		for (int i = 0; i <= (int) (abs(itsInterpInfo->b - itsInterpInfo->a) / STEP) + 1; i++) {
+			FSeries->AddXY(xCurrent, func(xCurrent), NULL, FSeries->Color);
+			xVec.push_back(xCurrent);
+			xCurrent += STEP;
+		}
 	}
-
-	// itsInterpInfo->polynomialStr.compare(LAGRANGE_POLYNOMIAL_STR) == 0;
 
 	if (itsInterpInfo->polynomialStr.compare(LAGRANGE_POLYNOMIAL_STR) == 0)
 		itsPoly = new LagrangePolynomial(itsInterpInfo);
 	else if (itsInterpInfo->polynomialStr.compare(NEWTON_I_POLYNOMIAL_STR) == 0)
 		itsPoly = new NewtonIPoly(itsInterpInfo);
-	else if (itsInterpInfo->polynomialStr.compare
-		(NEWTON_II_POLYNOMIAL_STR) == 0)
+	else if (itsInterpInfo->polynomialStr.compare(NEWTON_II_POLYNOMIAL_STR) == 0)
 		itsPoly = new NewtonIIPoly(itsInterpInfo);
 
-	if (itsPoly == NULL)
+	if (itsPoly == nullptr)
 		throw 1;
 
-	for (int i = 0; i < abs(itsInterpInfo->b - itsInterpInfo->a) / STEP; i++) {
-		PSeries->AddXY(xVec[i], itsPoly->functionPolynomial(xVec[i]), NULL,
-			PSeries->Color);
+	for (int i = 0; i <= (int)(abs(itsInterpInfo->b - itsInterpInfo->a) / STEP) + 1; i++) {
+        double x = xVec[i];
+		double val = itsPoly->functionPolynomial(xVec[i]);
+		PSeries->AddXY(
+			xVec[i],
+			itsPoly->functionPolynomial(xVec[i]),
+			NULL,
+			PSeries->Color
+		);
 	}
 }
 // ---------------------------------------------------------------------------
 
 void __fastcall TChildForm::FormClose(TObject *Sender, TCloseAction &Action) {
 	PSeries->Clear();
+	FSeries->Clear();
+    xVec.clear();
 	delete itsPoly;
+    delete itsInterpInfo;
 }
 // ---------------------------------------------------------------------------

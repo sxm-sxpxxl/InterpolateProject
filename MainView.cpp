@@ -16,19 +16,12 @@ __fastcall TMainForm::TMainForm(TComponent* Owner) : TForm(Owner) { }
 void __fastcall TMainForm::InterpolateButtonClick(TObject *Sender) {
 	double aValue = AValueEdit->Text.ToDouble();
 	double bValue = BValueEdit->Text.ToDouble();
-	double NValue = NValueEdit->Text.ToInt();
+	size_t NValue = NValueEdit->Text.ToInt();
 
-	InterpInfo* info = new InterpInfo();
 	std::wstring strFunction(FunctionsComboBox->Text.c_str());
 	std::wstring strPolynomial(PolynomialsComboBox->Text.c_str());
 
-	info->functionStr = strFunction;
-	info->polynomialStr = strPolynomial;
-	info->a = aValue;
-	info->b = bValue;
-	info->N = NValue;
-
-	ChildForm->initialize(info);
+	ChildForm->initialize( { strFunction, strPolynomial, aValue, bValue, NValue } );
 	ChildForm->ShowModal();
 }
 // ---------------------------------------------------------------------------

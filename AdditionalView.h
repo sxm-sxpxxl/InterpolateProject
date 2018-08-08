@@ -45,19 +45,15 @@ __published: // IDE-managed Components
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 
 private: // User declarations
-	InterpInfo* itsInterpInfo;
+	const InterpInfo* itsInterpInfo;
 	BasePolynomial* itsPoly;
 
-	std::vector<double>xVec;
+	std::vector<double> xVec;
 	void drawFunctionsOnGraph();
 
 public: // User declarations
 	__fastcall TChildForm(TComponent* Owner);
-	void TChildForm::initialize(InterpInfo* info);
-
-	// unsigned int str2int(const char* str, int h = 0) {
-	// return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
-	// }
+	void initialize(const InterpInfo & info);
 };
 
 // ---------------------------------------------------------------------------
