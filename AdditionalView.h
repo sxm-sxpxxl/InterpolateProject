@@ -17,6 +17,7 @@
 #include <VCLTee.TeeProcs.hpp>
 
 #include "PolynomialAndInterpInfo.h"
+#include <Vcl.Dialogs.hpp>
 // ---------------------------------------------------------------------------
 const double STEP = 0.1;
 
@@ -30,27 +31,33 @@ __published: // IDE-managed Components
 	TChart *Graphic;
 	TFastLineSeries *FSeries;
 	TLineSeries *PSeries;
-	TLabel *EmoValueLabel;
-	TLabel *EcoValueLabel;
+	TLabel *emoLabel;
+	TLabel *ecoLabel;
 	TButton *GraphicFigureSaveButton;
 	TMemo *ValueTableMemo;
 	TButton *ValueTableSaveButton;
 	TButton *CoeffTableSaveButton;
 	TMemo *CoeffTableMemo;
-	TChart *Chart1;
+	TChart *ErrorChart;
 	TFastLineSeries *ESeries;
-	TButton *Button1;
+	TButton *ErrorSaveButton;
+	TLabel *EmoValueLabel;
+	TLabel *EcoValueLabel;
+	TGroupBox *GroupBox1;
+	TSaveDialog *SaveChartDialog_FP;
+	TSaveDialog *SaveChartDialog_E;
 
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+	void __fastcall GraphicFigureSaveButtonClick(TObject *Sender);
+	void __fastcall ErrorSaveButtonClick(TObject *Sender);
 
 private: // User declarations
 	const InterpInfo* itsInterpInfo;
 	BasePolynomial* itsPoly;
 
-	std::vector<double> xVec;
 	void drawFunctionsOnGraph();
-
+    void saveChart(TChart* pChart, TSaveDialog* pSaveDialog);
 public: // User declarations
 	__fastcall TChildForm(TComponent* Owner);
 	void initialize(const InterpInfo & info);

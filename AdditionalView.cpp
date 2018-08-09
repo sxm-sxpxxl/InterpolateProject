@@ -32,15 +32,6 @@ void TChildForm::initialize(const InterpInfo & info) {
 
 // ---------------------------------------------------------------------------
 void TChildForm::drawFunctionsOnGraph() {
-	{
-		double xCurrent = itsInterpInfo->a;
-		for (int i = 0; i <= (int) (abs(itsInterpInfo->b - itsInterpInfo->a) / STEP) + 1; i++) {
-			FSeries->AddXY(xCurrent, func(xCurrent), NULL, FSeries->Color);
-			xVec.push_back(xCurrent);
-			xCurrent += STEP;
-		}
-	}
-
 	if (itsInterpInfo->polynomialStr.compare(LAGRANGE_POLYNOMIAL_STR) == 0)
 		itsPoly = new LagrangePolynomial(itsInterpInfo);
 	else if (itsInterpInfo->polynomialStr.compare(NEWTON_I_POLYNOMIAL_STR) == 0)
@@ -51,14 +42,36 @@ void TChildForm::drawFunctionsOnGraph() {
 	if (itsPoly == nullptr)
 		throw 1;
 
-	for (int i = 0; i <= (int)(abs(itsInterpInfo->b - itsInterpInfo->a) / STEP) + 1; i++) {
-        double x = xVec[i];
-		double val = itsPoly->functionPolynomial(xVec[i]);
+	double xCurrent = itsInterpInfo->a;
+
+	for (int i = 0; i <= (int)(abs(itsInterpInfo->b - itsInterpInfo->a) / STEP) + 1; i++, xCurrent += STEP) {
+		FSeries->AddXY(
+			xCurrent,
+			func(xCurrent),
+			NULL,
+			FSeries->Color
+		);
+
 		PSeries->AddXY(
-			xVec[i],
-			itsPoly->functionPolynomial(xVec[i]),
+			xCurrent,
+			itsPoly->functionPolynomial(xCurrent),
 			NULL,
 			PSeries->Color
+		);
+
+		ESeries->AddXY(
+			xCurrent,
+			abs(FSeries->YValues->operator[](xCurrent) - PSeries->YValues->operator[](xCurrent)),
+			NULL,
+			ESeries->Color
+		);
+
+        const UnicodeString format_template = L"0.000";
+		ValueTableMemo->Lines->Add(
+			FormatFloat(format_template, xCurrent) + L"\t\t" + \
+			FormatFloat(format_template, FSeries->YValues->operator[](xCurrent)) + L"\t\t" + \
+			FormatFloat(format_template, PSeries->YValues->operator[](xCurrent)) + L"\t\t" + \
+            FormatFloat(format_template, ESeries->YValues->operator[](xCurrent)) + L"\n"
 		);
 	}
 }
@@ -67,8 +80,31 @@ void TChildForm::drawFunctionsOnGraph() {
 void __fastcall TChildForm::FormClose(TObject *Sender, TCloseAction &Action) {
 	PSeries->Clear();
 	FSeries->Clear();
-    xVec.clear();
+	ESeries->Clear();
+
 	delete itsPoly;
-    delete itsInterpInfo;
+	delete itsInterpInfo;
 }
+
 // ---------------------------------------------------------------------------
+void __fastcall TChildForm::GraphicFigureSaveButtonClick(TObject *Sender)
+{
+    saveChart(Graphic, SaveChartDialog_FP);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TChildForm::ErrorSaveButtonClick(TObject *Sender)
+{
+	saveChart(ErrorChart, SaveChartDialog_E);
+}
+//---------------------------------------------------------------------------
+
+void TChildForm::saveChart(TChart* pChart, TSaveDialog* pSaveDialog) {
+	if (pSaveDialog->Execute(this->Handle)) {
+		pChart->SaveToBitmapFile(pSaveDialog->FileName);
+		ShowMessage(L"Файл \"" + pSaveDialog->FileName + "\" успешно сохранен!");
+	}
+	else {
+        ShowMessage(L"Сохранение не удалось!");
+    }
+}

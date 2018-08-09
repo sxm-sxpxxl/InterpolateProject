@@ -56,7 +56,7 @@ class BasePolynomial {
 public:
 	BasePolynomial(const InterpInfo* info);
 	virtual ~BasePolynomial();
-	virtual double functionPolynomial(const double & x) = 0;
+	virtual double functionPolynomial(const double & x) const = 0;
 
 protected:
 	std::vector<double> aVec;
@@ -70,14 +70,14 @@ class LagrangePolynomial : public BasePolynomial {
 public:
 	LagrangePolynomial(const InterpInfo* info) : BasePolynomial(info) { }
 	~LagrangePolynomial() override { }
-	double functionPolynomial(const double & x) override;
+	double functionPolynomial(const double & x) const override;
 };
 
 class BaseNewtonPolynomial : public BasePolynomial {
 public:
 	BaseNewtonPolynomial(const InterpInfo* info) : BasePolynomial(info) { }
 	virtual ~BaseNewtonPolynomial();
-	virtual double functionPolynomial(const double & x) = 0;
+	virtual double functionPolynomial(const double & x) const = 0;
 
 protected:
 	typedef std::vector<DifferenceInfo> vec_diff;
@@ -90,7 +90,7 @@ class NewtonIPoly : public BaseNewtonPolynomial {
 public:
 	NewtonIPoly(const InterpInfo* info);
 	~NewtonIPoly() override { }
-	double functionPolynomial(const double & x) override;
+	double functionPolynomial(const double & x) const override;
 
 private:
 };
@@ -99,7 +99,7 @@ class NewtonIIPoly : public BaseNewtonPolynomial {
 public:
 	NewtonIIPoly(const InterpInfo* info);
     ~NewtonIIPoly() override { }
-	double functionPolynomial(const double & x) override;
+	double functionPolynomial(const double & x) const override;
 
 private:
 };

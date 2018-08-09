@@ -26,7 +26,7 @@ BaseNewtonPolynomial::~BaseNewtonPolynomial() {
 	for (auto sub_vec : main_vec) delete sub_vec;
 }
 
-double LagrangePolynomial::functionPolynomial(const double & x) {
+double LagrangePolynomial::functionPolynomial(const double & x) const {
 	double result = 0;
 
 	for (size_t i = 0; i < xVec.size(); i++) {
@@ -90,7 +90,7 @@ NewtonIPoly::NewtonIPoly(const InterpInfo* info) : BaseNewtonPolynomial(info) {
 	}
 }
 
-double NewtonIPoly::functionPolynomial(const double & x) {
+double NewtonIPoly::functionPolynomial(const double & x) const {
 	double result = aVec[0]; // aVec[0] == func(0)
 	for (size_t i = 1; i < itsInfo->N; i++) {
 		double w = 1.0;
@@ -112,7 +112,7 @@ NewtonIIPoly::NewtonIIPoly(const InterpInfo* info) : BaseNewtonPolynomial(info) 
 	}
 }
 
-double NewtonIIPoly::functionPolynomial(const double & x) {
+double NewtonIIPoly::functionPolynomial(const double & x) const {
 	double result = func(xVec.back());
 
 	for (size_t i = 0; i < itsInfo->N - 1; i++) {
