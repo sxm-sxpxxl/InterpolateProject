@@ -42,6 +42,16 @@ struct InterpInfo {
 	}
 };
 
+struct DifferenceInfo {
+	double value;
+	bool isFilled;
+
+	DifferenceInfo(double value, bool isFilled) {
+		this->value = value;
+		this->isFilled = isFilled;
+    }
+};
+
 class BasePolynomial {
 public:
 	BasePolynomial(const InterpInfo* info);
@@ -66,11 +76,14 @@ public:
 class BaseNewtonPolynomial : public BasePolynomial {
 public:
 	BaseNewtonPolynomial(const InterpInfo* info) : BasePolynomial(info) { }
-	virtual ~BaseNewtonPolynomial() { }
+	virtual ~BaseNewtonPolynomial();
 	virtual double functionPolynomial(const double & x) = 0;
 
 protected:
-	virtual double deltaY(const unsigned & i) = 0;
+	typedef std::vector<DifferenceInfo> vec_diff;
+	std::vector<vec_diff*> main_vec;
+
+	double delta(const unsigned & i, const unsigned & j);
 };
 
 class NewtonIPoly : public BaseNewtonPolynomial {
@@ -80,7 +93,6 @@ public:
 	double functionPolynomial(const double & x) override;
 
 private:
-	double deltaY(const unsigned & i) override;
 };
 
 class NewtonIIPoly : public BaseNewtonPolynomial {
@@ -90,7 +102,6 @@ public:
 	double functionPolynomial(const double & x) override;
 
 private:
-	double deltaY(const unsigned & i) override;
 };
 
 #endif
