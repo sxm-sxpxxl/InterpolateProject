@@ -7,10 +7,11 @@
 #include <math.h>
 #include <vector>
 
+// # DEBUG
 #include <Vcl.Dialogs.hpp>
 
-long factorial(int n);
-double func(double x);
+long factorial(const int & n);
+double func(const double & x);
 
 const std::wstring LAGRANGE_POLYNOMIAL_STR = L"Полином Лагранжа";
 const std::wstring NEWTON_I_POLYNOMIAL_STR = L"Полином Ньютона I";
@@ -45,7 +46,7 @@ class BasePolynomial {
 public:
 	BasePolynomial(const InterpInfo* info);
 	virtual ~BasePolynomial();
-	virtual double functionPolynomial(double x) = 0;
+	virtual double functionPolynomial(const double & x) = 0;
 
 protected:
 	std::vector<double> aVec;
@@ -59,37 +60,37 @@ class LagrangePolynomial : public BasePolynomial {
 public:
 	LagrangePolynomial(const InterpInfo* info) : BasePolynomial(info) { }
 	~LagrangePolynomial() override { }
-	double functionPolynomial(double x) override;
+	double functionPolynomial(const double & x) override;
 };
 
 class BaseNewtonPolynomial : public BasePolynomial {
 public:
 	BaseNewtonPolynomial(const InterpInfo* info) : BasePolynomial(info) { }
 	virtual ~BaseNewtonPolynomial() { }
-	virtual double functionPolynomial(double x) = 0;
+	virtual double functionPolynomial(const double & x) = 0;
 
 protected:
-	virtual double deltaY(unsigned i) = 0;
+	virtual double deltaY(const unsigned & i) = 0;
 };
 
 class NewtonIPoly : public BaseNewtonPolynomial {
 public:
 	NewtonIPoly(const InterpInfo* info);
 	~NewtonIPoly() override { }
-	double functionPolynomial(double x) override;
+	double functionPolynomial(const double & x) override;
 
 private:
-	double deltaY(unsigned i) override;
+	double deltaY(const unsigned & i) override;
 };
 
 class NewtonIIPoly : public BaseNewtonPolynomial {
 public:
 	NewtonIIPoly(const InterpInfo* info);
     ~NewtonIIPoly() override { }
-	double functionPolynomial(double x) override;
+	double functionPolynomial(const double & x) override;
 
 private:
-	double deltaY(unsigned i) override;
+	double deltaY(const unsigned & i) override;
 };
 
 #endif

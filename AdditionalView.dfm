@@ -96,9 +96,6 @@ object ChildForm: TChildForm
         LeftAxis.LabelsFormat.Font.Color = clGray
         LeftAxis.LabelsFormat.Font.Height = -9
         LeftAxis.LabelStyle = talValue
-        RightAxis.Automatic = False
-        RightAxis.AutomaticMaximum = False
-        RightAxis.AutomaticMinimum = False
         View3D = False
         Zoom.Animated = True
         BevelWidth = 2

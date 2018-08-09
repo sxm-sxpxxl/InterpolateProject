@@ -22,7 +22,7 @@ BasePolynomial::~BasePolynomial() {
 	delete itsInfo;
 }
 
-double LagrangePolynomial::functionPolynomial(double x) {
+double LagrangePolynomial::functionPolynomial(const double & x) {
 	double result = 0;
 
 	for (size_t i = 0; i < xVec.size(); i++) {
@@ -47,7 +47,7 @@ NewtonIPoly::NewtonIPoly(const InterpInfo* info) : BaseNewtonPolynomial(info) {
 	}
 }
 
-double NewtonIPoly::deltaY(unsigned i) {
+double NewtonIPoly::deltaY(const unsigned & i) {
 	if (i == 0)
 		return func(xVec[0]);
 
@@ -71,7 +71,7 @@ double NewtonIPoly::deltaY(unsigned i) {
 	return deltaYo[i - 1];
 }
 
-double NewtonIPoly::functionPolynomial(double x) {
+double NewtonIPoly::functionPolynomial(const double & x) {
 	double result = aVec[0]; // aVec[0] == func(0)
 	for (size_t i = 1; i < xVec.size(); i++) {
 		double w = 1.0;
@@ -93,7 +93,7 @@ NewtonIIPoly::NewtonIIPoly(const InterpInfo* info) : BaseNewtonPolynomial(info) 
 	}
 }
 
-double NewtonIIPoly::deltaY(unsigned i) {
+double NewtonIIPoly::deltaY(const unsigned & i) {
 	if (i == 0)
 		return func(xVec[itsInfo->N - 1]);
 
@@ -117,7 +117,7 @@ double NewtonIIPoly::deltaY(unsigned i) {
 	return deltaYn[i - 1];
 }
 
-double NewtonIIPoly::functionPolynomial(double x) {
+double NewtonIIPoly::functionPolynomial(const double & x) {
 	double result = func(xVec.back());
 
 	for (size_t i = 0; i < xVec.size() - 1; i++) {
@@ -130,11 +130,11 @@ double NewtonIIPoly::functionPolynomial(double x) {
 	return result;
 }
 
-double func(double x) {
+double func(const double & x) {
 	return x*exp(x);
 }
 
-long factorial(int n) {
+long factorial(const int & n) {
 	long result = 1;
 	if (n == 1 || n == 0) return 1;
 	else for (int i = 1; i <= n; ++i) result *= i;
